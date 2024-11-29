@@ -7,12 +7,12 @@ struct node
     struct node *llink;
     struct node *rlink;
 };
-struct node *header=NULL;
+struct node *header = NULL;
 
 struct node *create_node(int data)
 {
     struct node *newnode;
-    newnode = malloc(sizeof(struct node));
+    newnode = (struct node *)malloc(sizeof(struct node));
     newnode->data = data;
     newnode->llink = NULL;
     newnode->rlink = NULL;
@@ -24,16 +24,17 @@ void insert_at_front(int data)
     struct node *newnode;
     newnode = create_node(data);
 
-    if (header==NULL)
+    if (header == NULL)
     {
-        header=newnode;
+        header = newnode;
     }
     else
     {
-        newnode->rlink=header;
-        header->llink=newnode;
-        header=newnode;
+        newnode->rlink = header;
+        header->llink = newnode;
+        header = newnode;
     }
+    printf("Inserted %d at position 1\n", data);
 }
 
 void insert_at_end(int data)
@@ -41,20 +42,25 @@ void insert_at_end(int data)
     struct node *newnode;
     newnode = create_node(data);
     struct node *ptr = header;
+    int position = 1;
 
     if (header == NULL)
     {
         header = newnode;
+        printf("Inserted %d at position %d\n", data, position);
         return;
     }
 
     while (ptr->rlink != NULL)
     {
         ptr = ptr->rlink;
+        position++;
     }
 
     ptr->rlink = newnode;
     newnode->llink = ptr;
+    position++;
+    printf("Inserted %d at position %d\n", data, position);
 }
 
 void insert_at_any(int data, int position)
@@ -88,6 +94,7 @@ void insert_at_any(int data, int position)
             ptr->rlink->llink = newnode;
         }
         ptr->rlink = newnode;
+        printf("Inserted %d at position %d\n", data, position);
     }
 }
 
@@ -209,18 +216,67 @@ void traversal()
 
 int main()
 {
-    insert_at_front(22);
-    insert_at_front(22);
-    insert_at_front(33);
-    insert_at_front(44);
-    insert_at_any(333, 4);
-    insert_at_end(100);
-    delete_at_front();
-    delete_at_end();
-    traversal();
-    search(22);
-    search(44);
-    delete_at_any(2);
-    traversal();
+    int choice, data, position;
+
+    do
+    {
+
+        printf("1. Insert at front\n");
+        printf("2. Insert at end\n");
+        printf("3. Insert at any position\n");
+        printf("4. Delete at front\n");
+        printf("5. Delete at end\n");
+        printf("6. Delete at any position\n");
+        printf("7. Search\n");
+        printf("8. Traversal\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter data: ");
+                scanf("%d", &data);
+                insert_at_front(data);
+                break;
+            case 2:
+                printf("Enter data: ");
+                scanf("%d", &data);
+                insert_at_end(data);
+                break;
+            case 3:
+                printf("Enter data: ");
+                scanf("%d", &data);
+                printf("Enter position: ");
+                scanf("%d", &position);
+                insert_at_any(data, position);
+                break;
+            case 4:
+                delete_at_front();
+                break;
+            case 5:
+                delete_at_end();
+                break;
+            case 6:
+                printf("Enter position: ");
+                scanf("%d", &position);
+                delete_at_any(position);
+                break;
+            case 7:
+                printf("Enter value to search: ");
+                scanf("%d", &data);
+                search(data);
+                break;
+            case 8:
+                traversal();
+                break;
+            case 9:
+                break;
+            default:
+                printf("Invalid choice\n");
+        }
+    }while( choice !=9);
+
     return 0;
 }
