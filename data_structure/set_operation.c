@@ -1,17 +1,3 @@
-/*
-?. Bit vector representation of set
-?. Union, Intersection, Complement, Set Difference
-there's a Universal set char[26] to store letters 'a' -> 'z'
-char set1[26], char set2[26], which will take input from user.
-func bitVector(set1) => set1_bit if set1[i] present in U then 1  otherwise 0
-
-functions for set ops(menu driven ofcourse);
-UNION -> union(set1_bit,set2_bit) : for(condtn) => set1_bit | set2_bit;
-COMPLEMENT -> Flip bits
-DIFFERENCE -> (set1_bit) & (set2_bit complement)
-
-*/
-
 #include <stdio.h>
 #include <ctype.h>
 
@@ -144,7 +130,7 @@ int main()
             printBitVector(result);
             break;
         case 5:
-            return;
+            return(0);
         default:
             printf("\nInvalid Choice, Try Again\n");
         }
